@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pokebuddy/detail_item_screen.dart';
 import 'package:pokebuddy/main_screen.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -12,9 +11,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "PokeBuddy: Teman Sejati Pokémon",
       theme: ThemeData(
-        primaryColor: Colors.cyan
+        primaryColor: const Color(0xffF77F00),
       ),
-      home: MainScreen(),
+      home: const MainScreen(),
     );
   }
 }

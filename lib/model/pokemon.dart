@@ -1,6 +1,6 @@
-class Product {
-  final String title;
+class Pokemon {
+  final String name;
   final String imageUrl;
 
-  Product(this.title, this.imageUrl);
+  Pokemon(this.name, this.imageUrl);
 }

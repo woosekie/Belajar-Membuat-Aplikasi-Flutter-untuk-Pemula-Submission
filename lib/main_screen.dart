@@ -8,14 +8,14 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Product> products = [
-      Product('Charizard', 'images/pokemon_1.png'),
-      Product('Zoroark', 'images/pokemon_2.png'),
-      Product('Leafon', 'images/pokemon_3.png'),
-      Product('Boltund', 'images/pokemon_4.png'),
-      Product('Great Tusk', 'images/pokemon_5.png'),
-      Product('Fuecoco', 'images/pokemon_6.png'),
-      // Add more products as needed
+    List<Pokemon> pokemons = [
+      Pokemon('Charizard', 'images/pokemon_1.png'),
+      Pokemon('Zoroark', 'images/pokemon_2.png'),
+      Pokemon('Leafon', 'images/pokemon_3.png'),
+      Pokemon('Boltund', 'images/pokemon_4.png'),
+      Pokemon('Great Tusk', 'images/pokemon_5.png'),
+      Pokemon('Fuecoco', 'images/pokemon_6.png'),
+      // Add more Pokemons as needed
     ];
 
     final List<Feature> features = [
@@ -41,6 +41,7 @@ class MainScreen extends StatelessWidget {
                 right: 16.0,
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Flexible(
                     child: Text(
@@ -63,7 +64,7 @@ class MainScreen extends StatelessWidget {
                       backgroundColor: Color(0xffFCBF49),
                       child: CircleAvatar(
                         radius: 28,
-                        backgroundImage: AssetImage('images/profile_pic.jpg'),
+                        backgroundImage: AssetImage('images/profile_pic.jpeg'),
                       ),
                     ),
                   )
@@ -109,7 +110,7 @@ class MainScreen extends StatelessWidget {
                                         style: const TextStyle(
                                             fontSize: 10.0,
                                             fontFamily: 'KanaSans',
-                                            fontWeight: FontWeight.bold)),
+                                            fontWeight: FontWeight.normal)),
                                   ],
                                 ),
                               ),
@@ -123,27 +124,20 @@ class MainScreen extends StatelessWidget {
               ),
             ),
             Container(
-                margin: const EdgeInsets.only(left: 16.0, right: 16.0),
+                margin: const EdgeInsets.only(left: 6.0, right: 16.0),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.black, // Border color
-                          width: 2.0, // Border width
-                        ),
-                        borderRadius: BorderRadius.circular(
-                            12.0), // Optional: Border radius
-                      ),
-                      child: const textInput(),
+                    const Expanded(
+                      child: MyCustomForm(),
                     ),
-                    const Spacer(),
+                    const SizedBox(
+                      width: 8.0,
+                    ),
                     ClipRRect(
                         borderRadius: BorderRadius.circular(6),
                         child: Container(
+                          height: 60,
+                          width: 60,
                           color: const Color(0xffF77F00),
                           child: const Padding(
                             padding: EdgeInsets.all(8.0),
@@ -163,7 +157,7 @@ class MainScreen extends StatelessWidget {
                 crossAxisCount: 2,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                children: List.generate(products.length, (index) {
+                children: List.generate(pokemons.length, (index) {
                   double imageWidth = MediaQuery.of(context).size.width / 2;
                   return Column(
                     children: <Widget>[
@@ -171,7 +165,7 @@ class MainScreen extends StatelessWidget {
                         elevation: 2,
                         child: Column(children: [
                           Image.asset(
-                            products[index].imageUrl,
+                            pokemons[index].imageUrl,
                             width: imageWidth,
                             height: 150,
                             fit: BoxFit.fill,
@@ -181,7 +175,7 @@ class MainScreen extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                products[index].title,
+                                pokemons[index].name,
                                 style: const TextStyle(
                                   fontFamily: 'KanaSans',
                                   fontSize: 16.0,
@@ -203,44 +197,27 @@ class MainScreen extends StatelessWidget {
   }
 }
 
-class textInput extends StatefulWidget {
-  const textInput({super.key});
+class MyCustomForm extends StatelessWidget {
+  const MyCustomForm({super.key});
 
-  @override
-  State<textInput> createState() => _textInputState();
-}
-
-class _textInputState extends State<textInput> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        TextField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            hintText: 'Trending pokemon',
+            hintStyle: TextStyle(fontFamily: 'KanaSans'),
+          ),
+           style: TextStyle(
+                fontFamily: 'KanaSans', // Replace with your desired font family
+                fontSize: 16.0, // You can also set font size here
+              ),
+        )
+      ],
+    );
   }
 }
 
-Future<void> _showAlertDialog(BuildContext context) async {
-  return showDialog<void>(
-    context: context,
-    barrierDismissible:
-        false, // Prevent dialog from being dismissed by tapping outside
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text('Alert Dialog Title'),
-        content: const SingleChildScrollView(
-          child: ListBody(
-            children: <Widget>[
-              Text('This is the content of the alert dialog.'),
-            ],
-          ),
-        ),
-        actions: <Widget>[
-          TextButton(
-            child: const Text('OK'),
-            onPressed: () {
-              Navigator.of(context).pop(); // Close the alert dialog
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
