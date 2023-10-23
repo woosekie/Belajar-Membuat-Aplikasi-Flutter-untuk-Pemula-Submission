@@ -12,50 +12,54 @@ class ProfileScreen extends StatelessWidget {
           children: <Widget>[
             Card(
               elevation: 1,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.black,
-                      size: 30,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        color: Color(0xffF77F00),
+                        size: 30,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                     ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  const Text(
-                    "Profile",
-                    style: TextStyle(
-                        fontFamily: 'kanaSans',
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  PopupMenuButton<int>(
-                    itemBuilder: (context) => [
-                      const PopupMenuItem(
-                          child: Text(
-                        "Edit Information",
-                        style: TextStyle(fontFamily: "KanaSans"),
-                      )),
-                      const PopupMenuItem(
-                          child: Row(
-                        children: [
-                          Icon(
-                            Icons.logout_rounded,
-                          ),
-                          SizedBox(width: 6),
-                          Text(
-                            "Logout",
-                            style: TextStyle(fontFamily: "KanaSans"),
-                          ),
-                        ],
-                      )),
-                    ],
-                  ),
-                ],
+                    const Text(
+                      "Profile",
+                      style: TextStyle(
+                          fontFamily: 'kanaSans',
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    PopupMenuButton<int>(
+                      color: const Color(0xffF77F00),
+                      itemBuilder: (context) => [
+                        const PopupMenuItem(
+                            child: Text(
+                          "Edit Information",
+                          style: TextStyle(fontFamily: "KanaSans"),
+                        )),
+                        const PopupMenuItem(
+                            child: Row(
+                          children: [
+                            Icon(
+                              Icons.logout_rounded,
+                            ),
+                            SizedBox(width: 6),
+                            Text(
+                              "Logout",
+                              style: TextStyle(fontFamily: "KanaSans"),
+                            ),
+                          ],
+                        )),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             Column(
@@ -98,7 +102,6 @@ class ProfileScreen extends StatelessWidget {
                       Container(
                         margin: const EdgeInsets.only(top: 16, bottom: 16),
                         decoration: BoxDecoration(
-                         
                           color: Colors.black12,
                           borderRadius: BorderRadius.circular(8.0),
                         ),
