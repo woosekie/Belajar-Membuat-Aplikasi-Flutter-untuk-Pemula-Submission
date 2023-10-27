@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokebuddy/main_screen.dart';
+import 'package:pokebuddy/profile_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xffF77F00),
       ),
       home: const MainScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

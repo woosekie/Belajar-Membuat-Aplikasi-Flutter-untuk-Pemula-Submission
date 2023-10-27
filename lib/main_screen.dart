@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokebuddy/detail_item_screen.dart';
 import 'package:pokebuddy/model/pokemon.dart';
-import 'package:pokebuddy/model/feature.dart';
+import 'package:pokebuddy/model/menu.dart';
 import 'package:pokebuddy/profile_screen.dart';
 
 class MainScreen extends StatelessWidget {
@@ -9,117 +9,148 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Feature> features = [
-      Feature('Inventory', Icons.inventory),
-      Feature('Contest', Icons.fitbit_sharp),
-      Feature('Shop', Icons.store),
-      Feature('Social', Icons.people),
-      Feature('Training', Icons.catching_pokemon),
-      Feature('Rank', Icons.leaderboard),
-      Feature('Tracking', Icons.location_on),
-      Feature('Quest', Icons.question_mark),
+    return Scaffold(
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          if (constraints.maxWidth <= 600) {
+            return HomeScreen(4, constraints.maxWidth, 2);
+          } else if (constraints.maxWidth <= 800) {
+            return HomeScreen(6, constraints.maxWidth, 3);
+          } else {
+            return const HomeScreen(8, 800, 4);
+          }
+        },
+      ),
+    );
+  }
+}
+
+//home screen
+class HomeScreen extends StatelessWidget {
+  final int axisCountItem1;
+  final double screenWidthSize;
+  final int axisCountItem2;
+  const HomeScreen(
+      this.axisCountItem1, this.screenWidthSize, this.axisCountItem2,
+      {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    //menu data
+    final List<Menu> menu = [
+      Menu('Inventory', Icons.inventory),
+      Menu('Contest', Icons.fitbit_sharp),
+      Menu('Shop', Icons.store),
+      Menu('Social', Icons.people),
+      Menu('Training', Icons.catching_pokemon),
+      Menu('Rank', Icons.leaderboard),
+      Menu('Tracking', Icons.location_on),
+      Menu('Quest', Icons.question_mark),
     ];
 
-    return Scaffold(
-      appBar: AppBar(
-        title:
-            Text('Wisata Bandung. Size: ${MediaQuery.of(context).size.width}'),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            SafeArea(
-                child: Padding(
-              padding: const EdgeInsets.only(
-                top: 20.0,
-                left: 16.0,
-                right: 16.0,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Flexible(
-                    child: Text(
-                      "Find Your Favourite Pokemon ",
-                      style: TextStyle(
-                          fontSize: 24,
-                          fontFamily: 'KanaSans',
-                          fontWeight: FontWeight.bold),
-                    ),
+    return Center(
+      child: SizedBox(
+        width: screenWidthSize,
+        child: SingleChildScrollView(
+          child: Container(
+            color: const Color(0xfff4f4f4),
+            child: Column(
+              children: <Widget>[
+                SafeArea(
+                    child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 20.0,
+                    left: 16.0,
+                    right: 16.0,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return const ProfileScreen();
-                      }));
-                    },
-                    child: const CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Color(0xffFCBF49),
-                      child: CircleAvatar(
-                        radius: 28,
-                        backgroundImage: AssetImage('images/profile_pic.jpeg'),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Flexible(
+                        child: Text(
+                          "Find Your Favourite Pokemon",
+                          style: TextStyle(
+                              fontSize: 24,
+                              fontFamily: 'KanaSans',
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
-                  )
-                ],
-              ),
-            )),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 16.0,
-                right: 16.0,
-              ),
-              child: ClipRRect(
-                child: Image.asset('images/banner.png'),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 16, left: 16, right: 16),
-              child: GridView.count(
-                padding: EdgeInsets.zero,
-                childAspectRatio: 4 / 4,
-                crossAxisCount: 4,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                children: List.generate(features.length, (index) {
-                  return Column(
-                    children: <Widget>[
-                      Card(
-                        elevation: 3,
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              width: 100,
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  children: <Widget>[
-                                    Icon(
-                                      features[index].icon,
-                                      color: const Color(0xffF77F00),
-                                    ),
-                                    const SizedBox(height: 8.0),
-                                    Text(features[index].title,
-                                        style: const TextStyle(
-                                            fontSize: 10.0,
-                                            fontFamily: 'KanaSans',
-                                            fontWeight: FontWeight.normal)),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return const ProfileScreen();
+                          }));
+                        },
+                        child: const CircleAvatar(
+                          radius: 30,
+                          backgroundColor: Color(0xffFCBF49),
+                          child: CircleAvatar(
+                            radius: 28,
+                            backgroundImage:
+                                AssetImage('images/profile_pic.jpeg'),
+                          ),
                         ),
                       )
                     ],
-                  );
-                }),
-              ),
+                  ),
+                )),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 16.0,
+                    right: 16.0,
+                  ),
+                  child: ClipRRect(
+                    child: Image.asset('images/banner.png'),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 16, left: 16, right: 16),
+                  child: GridView.count(
+                    padding: EdgeInsets.zero,
+                    childAspectRatio: 1/1,
+                    crossAxisCount: axisCountItem1,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: List.generate(menu.length, (index) {
+                      return Column(
+                        children: <Widget>[
+                          Card(
+                            elevation: 3,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  width: 100,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Icon(
+                                          menu[index].icon,
+                                          color: const Color(0xffF77F00),
+                                        ),
+                                        const SizedBox(height: 8.0),
+                                        Text(menu[index].title,
+                                            style: const TextStyle(
+                                                fontSize: 10.0,
+                                                fontFamily: 'KanaSans',
+                                                fontWeight: FontWeight.normal)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      );
+                    }),
+                  ),
+                ),
+                MyCustomList(axisCountItem2)
+              ],
             ),
-            const MyCustomList()
-          ],
+          ),
         ),
       ),
     );
@@ -127,13 +158,15 @@ class MainScreen extends StatelessWidget {
 }
 
 class MyCustomList extends StatefulWidget {
-  const MyCustomList({super.key});
+  final int itemSize;
+  const MyCustomList(this.itemSize, {super.key});
 
   @override
   State<MyCustomList> createState() => _MyCustomListState();
 }
 
 class _MyCustomListState extends State<MyCustomList> {
+  //pokemon data
   List<Pokemon> pokemons = [
     Pokemon(
         'Charizard',
@@ -195,7 +228,7 @@ class _MyCustomListState extends State<MyCustomList> {
         0.4,
         'Blaze',
         '0909'),
-    // Add more Pokemons as needed
+
   ];
   // This list holds the data for the list view
   List<dynamic> _foundPokemons = [];
@@ -216,8 +249,7 @@ class _MyCustomListState extends State<MyCustomList> {
           .where((user) =>
               user.name.toLowerCase().contains(enteredKeyword.toLowerCase()))
           .toList();
-      // we use t
-      //he toLowerCase() method to make it case-insensitive
+      //the toLowerCase() method to make it case-insensitive
     }
     setState(() {
       _foundPokemons = results;
@@ -227,7 +259,7 @@ class _MyCustomListState extends State<MyCustomList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.all(16.0),
+        margin: const EdgeInsets.all(16),
         child: Column(
           children: [
             Padding(
@@ -238,14 +270,22 @@ class _MyCustomListState extends State<MyCustomList> {
                     child: TextField(
                       onChanged: (value) => _runFilter(value),
                       decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black12)),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xffF77F00)),
+                        ),
+                        hoverColor: Colors.white,
                         border: OutlineInputBorder(),
                         hintText: 'Trending pokemon',
                         hintStyle: TextStyle(fontFamily: 'KanaSans'),
                       ),
                       style: const TextStyle(
                         fontFamily:
-                            'KanaSans', // Replace with your desired font family
-                        fontSize: 16.0, // You can also set font size here
+                            'KanaSans', 
+                        fontSize: 16.0,
                       ),
                     ),
                   ),
@@ -255,8 +295,8 @@ class _MyCustomListState extends State<MyCustomList> {
                   ClipRRect(
                       borderRadius: BorderRadius.circular(6),
                       child: Container(
-                        height: 60,
-                        width: 60,
+                        height: 53,
+                        width: 53,
                         color: const Color(0xffF77F00),
                         child: const Padding(
                           padding: EdgeInsets.all(8.0),
@@ -272,12 +312,10 @@ class _MyCustomListState extends State<MyCustomList> {
             GridView.count(
               padding: EdgeInsets.zero,
               childAspectRatio: 0.9,
-              crossAxisCount: 2,
+              crossAxisCount: widget.itemSize,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               children: List.generate(_foundPokemons.length, (index) {
-                //  final Pokemon pokemon = _foundPokemons[index],
-
                 double imageWidth = MediaQuery.of(context).size.width / 2;
                 return Column(
                   children: <Widget>[

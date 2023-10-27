@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
 
-class Feature {
+class Menu {
   final String title;
   final IconData icon;
 
-  Feature(this.title, this.icon);
+  Menu(this.title, this.icon);
 }
