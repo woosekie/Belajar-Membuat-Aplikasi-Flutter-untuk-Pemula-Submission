@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pokebuddy/main_screen.dart';
-import 'package:pokebuddy/profile_screen.dart';
 
 void main() => runApp(const MyApp());
 

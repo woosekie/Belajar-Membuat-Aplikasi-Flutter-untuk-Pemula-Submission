@@ -108,41 +108,56 @@ class HomeScreen extends StatelessWidget {
                   margin: const EdgeInsets.only(top: 16, left: 16, right: 16),
                   child: GridView.count(
                     padding: EdgeInsets.zero,
-                    childAspectRatio: 1/1,
+                    childAspectRatio: 1 / 1,
                     crossAxisCount: axisCountItem1,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     children: List.generate(menu.length, (index) {
-                      return Column(
-                        children: <Widget>[
-                          Card(
-                            elevation: 3,
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  width: 100,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(16.0),
-                                    child: Column(
-                                      children: <Widget>[
-                                        Icon(
-                                          menu[index].icon,
-                                          color: const Color(0xffF77F00),
+                      double imageWidth = MediaQuery.of(context).size.width /axisCountItem1 ;
+                      return Flexible(
+                        child: Column(
+                          children: <Widget>[
+                            Flexible(
+                              child: Card(
+                                elevation: 3,
+                                child: Column(
+                                  children: [
+                                    Flexible(
+                                      child: SizedBox(
+                                        width: imageWidth,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16.0),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Flexible(
+                                                child: Icon(
+                                                  menu[index].icon,
+                                                  color:
+                                                      const Color(0xffF77F00),
+                                                ),
+                                              ),
+                                              const SizedBox(height: 12.0),
+                                              Flexible(
+                                                child: Text(menu[index].title,
+                                                    style: const TextStyle(
+                                                        fontSize: 12.0,
+                                                        fontFamily: 'KanaSans',
+                                                        fontWeight:
+                                                            FontWeight.normal)),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                        const SizedBox(height: 8.0),
-                                        Text(menu[index].title,
-                                            style: const TextStyle(
-                                                fontSize: 10.0,
-                                                fontFamily: 'KanaSans',
-                                                fontWeight: FontWeight.normal)),
-                                      ],
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          )
-                        ],
+                              ),
+                            )
+                          ],
+                        ),
                       );
                     }),
                   ),
@@ -228,7 +243,6 @@ class _MyCustomListState extends State<MyCustomList> {
         0.4,
         'Blaze',
         '0909'),
-
   ];
   // This list holds the data for the list view
   List<dynamic> _foundPokemons = [];
@@ -283,8 +297,7 @@ class _MyCustomListState extends State<MyCustomList> {
                         hintStyle: TextStyle(fontFamily: 'KanaSans'),
                       ),
                       style: const TextStyle(
-                        fontFamily:
-                            'KanaSans', 
+                        fontFamily: 'KanaSans',
                         fontSize: 16.0,
                       ),
                     ),
@@ -311,7 +324,7 @@ class _MyCustomListState extends State<MyCustomList> {
             ),
             GridView.count(
               padding: EdgeInsets.zero,
-              childAspectRatio: 0.9,
+              childAspectRatio: 10 / 11,
               crossAxisCount: widget.itemSize,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -319,36 +332,40 @@ class _MyCustomListState extends State<MyCustomList> {
                 double imageWidth = MediaQuery.of(context).size.width / 2;
                 return Column(
                   children: <Widget>[
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return DetailItemScreen(_foundPokemons[index]);
-                        }));
-                      },
-                      child: Card(
-                        elevation: 2,
-                        child: Column(children: [
-                          Image.asset(
-                            _foundPokemons[index].imageUrl,
-                            width: imageWidth,
-                            height: 150,
-                            fit: BoxFit.fill,
-                          ),
-                          Container(
-                            color: Colors.white,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                _foundPokemons[index].name,
-                                style: const TextStyle(
-                                  fontFamily: 'KanaSans',
-                                  fontSize: 16.0,
-                                ),
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return DetailItemScreen(_foundPokemons[index]);
+                          }));
+                        },
+                        child: Card(
+                          elevation: 2,
+                          child: Column(children: [
+                            Expanded(
+                              child: Image.asset(
+                                _foundPokemons[index].imageUrl,
+                                width: imageWidth,
+                                height: 150,
+                                fit: BoxFit.fill,
                               ),
                             ),
-                          )
-                        ]),
+                            Container(
+                              color: Colors.white,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  _foundPokemons[index].name,
+                                  style: const TextStyle(
+                                    fontFamily: 'KanaSans',
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ]),
+                        ),
                       ),
                     )
                   ],
